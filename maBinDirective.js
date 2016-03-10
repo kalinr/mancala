@@ -4,10 +4,11 @@ angular.module("mancalaApp")
 
     //watch the value from the state object, update scope.stoneCount when this bin's count changes
     scope.$watch(function(){
+      console.log("watch function!");
       return gameState.binValues[scope.binName]
     }, function(newVal, oldVal){
       scope.stoneCount = newVal;
-    }, true);
+    }, false);
 
     scope.moveStones = function(){
       gameState.removeStones(scope.binName);

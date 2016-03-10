@@ -20,25 +20,46 @@ angular.module("mancalaApp")
       "bottom6": 4
     };
 
-  var orderArray = ["rightBin","top6","top5","top4","top3","top2","top1","leftBin","bottom1","bottom2","bottom3","bottom4","bottom5","bottom6"];
+  var orderArray = ["rightbin","top6","top5","top4","top3","top2","top1","leftbin","bottom1","bottom2","bottom3","bottom4","bottom5","bottom6"];
   var binCount = orderArray.length;
 
+  var currentMovingName = null;
+  var currentlyMoving = false;
+  var movingStoneCount = 0;
+
   var removeStones = function(binName){
-    binValues[binName] = 0;
+    this.currentMovingName = binName;
+    this.currentlyMoving = true;
+    movingStoneCount = binValues[binName];
+    this.binValues[binName] = 0;
   }
 
   var addStone = function(binName){
-    binValues[binName]++;
+    this.binValues[binName]++;
+    movingStoneCount--;
   }
 
-  var getStoneCount = function(binName){
-    return binValues[binName];
+  var addNextStone = function(binName){
+    var binIndex = orderArray.indexOf(binName) + 1;
+    if(binIndex === binCount){
+      binIndex = 0;
+    }
+
+    if(movingStoneCount === 0){
+      this.currentMovingName = null;
+      this.currentlyMoving = false;
+    }else{
+      this.addStone(orderArray[binIndex]);
+      this.currentMovingName = orderArray[binIndex];
+    }
   }
 
   return {
     removeStones: removeStones,
     addStone: addStone,
-    getStoneCount: getStoneCount,
-    binValues: binValues
+    addNextStone: addNextStone,
+    binValues: binValues,
+    currentMovingName: currentMovingName,
+    //movingStoneCount: movingStoneCount
   }
 });
