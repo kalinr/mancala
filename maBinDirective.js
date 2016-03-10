@@ -1,10 +1,10 @@
 angular.module("mancalaApp")
 .directive('maBin', ['gameState', function(gameState) {
   function link(scope, element, attrs) {
+    scope.goalBin = Boolean(scope.goalBin);
 
     //watch the value from the state object, update scope.stoneCount when this bin's count changes
     scope.$watch(function(){
-      console.log("watch function!");
       return gameState.binValues[scope.binName];
     }, function(newVal, oldVal){
       scope.stoneCount = newVal;
@@ -29,7 +29,8 @@ angular.module("mancalaApp")
   return {
     restrict: 'A',
     scope:{
-      binName: "@maBin"
+      binName: "@maBin",
+      goalBin: "@goalbin"
     },
     //binName: "@maBin",
     link: link,
