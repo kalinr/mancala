@@ -4,6 +4,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
 
     <script src="main.js"></script>
+    <script src="gameStateService.js"></script>
+    <script src="maBinDirective.js"></script>
+
     <link rel="stylesheet" type="text/css" href="mancala.css">
   </head>
 
@@ -15,13 +18,13 @@
       </div>
 
       <div id="gameboard">
-        <div ma-bin="left"></div>
+        <div ma-bin="leftbin" id="leftbin"></div>
 
-        <div ma-bin="top" index="{{::i}}" ng-repeat="i in [1,2,3,4,5,6]"></div>
+        <div ma-bin="top{{::i}}" ng-repeat="i in [1,2,3,4,5,6]"></div>
 
-        <div ma-bin="bottom" index="{{::i}}" ng-repeat="i in [1,2,3,4,5,6]"></div>
+        <div ma-bin="bottom{{::i}}" ng-repeat="i in [1,2,3,4,5,6]"></div>
 
-        <div ma-bin="right"></div>
+        <div ma-bin="rightbin" id="rightbin"></div>
       </div>
 
     </div>
