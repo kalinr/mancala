@@ -45,12 +45,16 @@ angular.module("mancalaApp")
       binIndex = 0;
     }
 
+    //add a stone to next bin if we are not at the end (checking just in case)
+    if(movingStoneCount > 0){
+      this.addStone(orderArray[binIndex]);
+      this.currentMovingName = orderArray[binIndex];
+    }
+
+    //if we have reached the end, set to moving as false
     if(movingStoneCount === 0){
       this.currentMovingName = null;
       this.currentlyMoving = false;
-    }else{
-      this.addStone(orderArray[binIndex]);
-      this.currentMovingName = orderArray[binIndex];
     }
   }
 

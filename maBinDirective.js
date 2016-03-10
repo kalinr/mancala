@@ -10,16 +10,20 @@ angular.module("mancalaApp")
       scope.stoneCount = newVal;
     }, false);
 
-    //watch for currentlyMoving var and disable when stones are being moved
-    scope.$watch(function(){
-      return gameState.currentlyMoving;
-    }, function(newVal, oldVal){
-      scope.disabled = newVal;
-    }, false);
-
+    //fires when user clicks on button
     scope.moveStones = function(){
-      gameState.removeStones(scope.binName);
+      scope.$emit("moveStones", scope.binName);
     }
+
+    //fires when any bin begins moving
+    scope.$on("moveStonesBegin", function(event, data){
+      scope.disabled = true;
+    });
+
+    //fires when movement ends and we can go back to allowing user interaction
+    scope.$on("moveStonesEnd", function(event, data){
+      scope.disabled = false;
+    });
   }
 
   return {
@@ -27,6 +31,7 @@ angular.module("mancalaApp")
     scope:{
       binName: "@maBin"
     },
+    //binName: "@maBin",
     link: link,
     templateUrl: 'bin.html'
   };
